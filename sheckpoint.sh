@@ -20,6 +20,8 @@ show_usage() {
 # https://stackoverflow.com/a/3882880/1967121
 #
 
+git_diff_cmd=(git diff --no-ext-diff --no-color)
+
 args=()
 
 while [ "$#" -gt 0 ]; do
@@ -108,7 +110,7 @@ function run_diff() {
   stash_ref=$(cat "$(checkpoint_file)")
 
   echo '<diff "changes since last checkpoint">'
-  git diff "$stash_ref"
+  "${git_diff_cmd[@]}" "$stash_ref" | cat
   echo '</diff>'
 }
 
